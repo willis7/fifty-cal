@@ -25,5 +25,14 @@ func joining(a *auction) stateFn{
 
 func bidding(a *auction) stateFn {
 
+	if a.bidPrice <= a.maxBid {
+		return winning
+	}
+
 	return bidding
+}
+
+func winning(a *auction) stateFn {
+
+	return nil
 }

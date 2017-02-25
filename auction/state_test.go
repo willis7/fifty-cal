@@ -18,3 +18,18 @@ func TestJoining(t *testing.T) {
 	}
 
 }
+
+func TestBidPriceGreaterThanMaxBid(t *testing.T) {
+	a := &auction{
+		maxBid: 100,
+		bidPrice: 100,
+	}
+
+	actual := reflect.ValueOf(bidding(a))
+	expected := reflect.ValueOf(winning)
+
+	// see: TestJoining
+	if actual.Pointer() != expected.Pointer() {
+		t.Errorf("Expected; %v, got; %v", actual, expected)
+	}
+}

@@ -1,67 +1,29 @@
 package auction
 
-import "fmt"
+import (
+	"time"
+)
 
-type Updater interface {
-	Update()
+//This is an implenentation of the Rob Pike FSM
+// http://rspace.googlecode.com/hg/slide/lex.html#landing-slide
+
+// stateFn represents the state of the scanner
+// as a function that returns the next state.
+type stateFn func(*auction) stateFn
+
+type auction struct {
+	descItemNumber int
+	endedTime        time.Time
+	bidPrice       float32 // current bid price
+	maxBid         float32 // user defined maximum bid
 }
 
-type State struct {
-	Updater
-	counter int
+func joining(a *auction) stateFn{
+	// when the lead time is reached
+	return bidding
 }
 
-type Joining State
-type Bidding State
-type Winning State
-type Lost State
-type Won State
+func bidding(a *auction) stateFn {
 
-func (self *Joining) Update() {
-	fmt.Println("Joining")
-
-	// receive price
-	// self.Updater = (*Bidding)(self)
-
-	// auction closed
-	// self.Updater = (*Lost)(self)
-}
-
-
-func (self *Bidding) Update() {
-	fmt.Println("Bidding")
-
-	// price <= bid
-	// self.Updater = (*Winning)(self)
-
-	// auction closed
-	// self.Updater = (*Lost)(self)
-
-	// price > bid
-	// stay in state
-}
-
-func (self *Winning) Update() {
-	fmt.Println("Winning")
-
-	// auction finished
-	// self.Updater = (*Won)(self)
-
-	// price > bid
-	// self.Update = (*Bidding)(self)
-
-	// price <= bid
-	// stay in state
-}
-
-func (self *Lost) Update() {
-	fmt.Println("Lost")
-
-	// report & break
-}
-
-func (self *Won) Update() {
-	fmt.Println("Won")
-
-	// report & break
+	return bidding
 }

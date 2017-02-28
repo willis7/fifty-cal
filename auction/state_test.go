@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestJoining(t *testing.T) {
+func TestAuction_Joining(t *testing.T) {
 	a := &auction{}
 
 	actual := reflect.ValueOf(joining(a))
@@ -19,7 +19,7 @@ func TestJoining(t *testing.T) {
 
 }
 
-func TestBidPriceGreaterThanMaxBid(t *testing.T) {
+func TestAuction_BidPriceGreaterThanMaxBid(t *testing.T) {
 	a := &auction{
 		maxBid: 100,
 		bidPrice: 100,
@@ -30,6 +30,25 @@ func TestBidPriceGreaterThanMaxBid(t *testing.T) {
 
 	// see: TestJoining
 	if actual.Pointer() != expected.Pointer() {
+		t.Errorf("Expected; %v, got; %v", actual, expected)
+	}
+}
+
+func TestAuction_AnnounceClosed(t *testing.T) {
+	a := &auction{}
+
+	a.AnnounceClosed()
+
+	expected := "CLOSED"
+	if actual := a.GetStatus(); actual != expected {
+		t.Errorf("Expected; %v, got; %v", actual, expected)
+	}
+
+	actual := reflect.ValueOf(bidding(a))
+	expectedFn := reflect.ValueOf(lost)
+
+	// see: TestJoining
+	if actual.Pointer() != expectedFn.Pointer() {
 		t.Errorf("Expected; %v, got; %v", actual, expected)
 	}
 }

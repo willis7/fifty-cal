@@ -41,6 +41,9 @@ fmt:
 test:
 	go test -v $(shell go list ./... | grep -v /vendor/)
 
+race:
+	go test -race -v $(shell go list ./... | grep -v /vendor/)
+
 start:
 	go run ./cmd/main.go
 

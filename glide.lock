@@ -1,0 +1,6 @@
+hash: c8e1bc39e2d619eb1094156f5c4250f6ee2aa813cc960ce2a70fa6f9783bdf85
+updated: 2017-03-19T16:22:07.194540804Z
+imports:
+- name: github.com/onsi/gomega
+  version: a78ae492d53aad5a7a232d0d0462c14c400e3ee7
+testImports: []

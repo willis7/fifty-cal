@@ -1,2 +1,4 @@
 package: github.com/willis7/fifty-cal
-import: []
+import:
+- package: github.com/onsi/gomega
+  version: ~1.0.0

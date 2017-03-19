@@ -5,7 +5,16 @@ import (
 	"time"
 )
 
-//This is an implenentation of the Rob Pike FSM
+const (
+	StatusJoining = "JOINING"
+	StatusBidding = "BIDDING"
+	StatusClosed  = "CLOSED"
+	StatusWon     = "WON"
+	StatusLost    = "LOST"
+	StatusWinning = "WINNING"
+)
+
+//This is an implementation of the Rob Pike FSM
 // http://rspace.googlecode.com/hg/slide/lex.html#landing-slide
 
 // stateFn represents the state of the auction
@@ -21,43 +30,14 @@ type auction struct {
 	mu             sync.RWMutex // guards status
 }
 
-func joining(a *auction) stateFn {
-	a.mu.Lock()
-	defer a.mu.Unlock()
-	a.status = "BIDDING"
-	// when the lead time is reached
-	return bidding
-}
-
-func bidding(a *auction) stateFn {
-	a.mu.Lock()
-	defer a.mu.Unlock()
-	if a.status == "CLOSED" {
-		a.status = "LOST"
-		return lost
-	}
-
-	if a.bidPrice <= a.maxBid {
-		a.status = "WON"
-		return winning
-	}
-
-	return bidding
-}
-
-func winning(a *auction) stateFn {
-	return nil
-}
-
-func lost(a *auction) stateFn {
-	return nil
-}
-
-func Snipe(itemNumber int, maxBid float32) (*auction) {
+// Snipe starts a concurrent state machine process with an auction which is initialised from
+// the inputs. A pointer to the auction is then returned
+func Snipe(itemNumber int, maxBid float32, bidPrice float32) (*auction) {
 	a := &auction{
 		descItemNumber: itemNumber,
+		bidPrice:       bidPrice,
 		maxBid:         maxBid,
-		status:         "JOINING",
+		status:         StatusJoining,
 		mu:             sync.RWMutex{},
 	}
 
@@ -84,5 +64,41 @@ func (a *auction) Status() string {
 func (a *auction) AnnounceClosed() {
 	a.mu.Lock()
 	defer a.mu.Unlock()
-	a.status = "CLOSED"
+	a.status = StatusClosed
+}
+
+//////////////////
+// Auction States
+//////////////////
+
+func joining(a *auction) stateFn {
+	a.mu.Lock()
+	defer a.mu.Unlock()
+	// when the lead time is reached
+	a.status = StatusBidding
+	return bidding
+}
+
+func bidding(a *auction) stateFn {
+	a.mu.Lock()
+	defer a.mu.Unlock()
+	if a.status == StatusClosed {
+		a.status = StatusLost
+		return lost
+	}
+
+	if a.bidPrice <= a.maxBid {
+		a.status = StatusWon
+		return winning
+	}
+
+	return bidding
+}
+
+func winning(a *auction) stateFn {
+	return nil
+}
+
+func lost(a *auction) stateFn {
+	return nil
 }

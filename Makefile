@@ -9,11 +9,11 @@ help:
 	@echo "    build                - performs a full build of the project (clean install check)"
 	@echo "    compile				- creates a binary in bin directory of GOPATH"
 	@echo "    check                - performs all verification tasks in the project"
-	@echo "    coverage             - print a coverage report to terminal
+	@echo "    coverage             - print a coverage report to terminal"
 	@echo "    clean                - deletes the project vendor directory."
 	@echo "    install              - download all dependencies"
 	@echo "    lint                 - ensure code is standards compliant"
-	@echo "    unit            		- run tests"
+	@echo "    test            		- run tests"
 	@echo "    docker-build         - build docker image"
 	@echo "    docker-run           - run docker conatiner"
 	@echo "    docker-rm            - remove docker container"

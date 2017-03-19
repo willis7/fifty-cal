@@ -19,21 +19,6 @@ func TestAuction_Joining(t *testing.T) {
 
 }
 
-//func TestAuction_Bidding_BidPriceLowerThanMaxBid(t *testing.T) {
-//	a := &auction{
-//		maxBid:   100,
-//		bidPrice: 50,
-//	}
-//
-//	actual := reflect.ValueOf(bidding(a))
-//	expected := reflect.ValueOf(bidding)
-//
-//	// see: TestJoining
-//	if actual.Pointer() != expected.Pointer() {
-//		t.Errorf("Expected; %v, got; %v", expected, actual)
-//	}
-//}
-
 func TestAuction_Bidding_AnnounceClosed(t *testing.T) {
 	a := &auction{}
 
@@ -65,7 +50,7 @@ func TestStateMachine(t *testing.T) {
 	}{
 		// #1
 		{
-			description:    "bidding: bid price greater than max bid",
+			description:    "bidding: bid price equal to max bid",
 			bidPrice:       100,
 			maxBid:         100,
 			currentStatus:  "BIDDING",

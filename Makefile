@@ -33,16 +33,16 @@ compile:
 	go install ./cmd/$(NAME)_server
 
 coverage:
-	echo 'mode: atomic' > coverage.txt && go list $(shell go list ./... | grep -v /vendor/) | xargs -n1 -I{} sh -c 'go test -covermode=atomic -coverprofile=coverage.tmp {} && tail -n +2 coverage.tmp >> coverage.txt' && rm coverage.tmp
+	echo 'mode: atomic' > coverage.txt && go list $(shell glide novendor) | xargs -n1 -I{} sh -c 'go test -covermode=atomic -coverprofile=coverage.tmp {} && tail -n +2 coverage.tmp >> coverage.txt' && rm coverage.tmp
 
 fmt:
 	go fmt ./...
 
 test:
-	go test -v $(shell go list ./... | grep -v /vendor/)
+	go test -v $(shell glide novendor)
 
 race:
-	go test -race -v $(shell go list ./... | grep -v /vendor/)
+	go test -race -v $(shell glide novendor)
 
 start:
 	go run ./cmd/main.go

@@ -1,0 +1,15 @@
+mode: atomic
+github.com/willis7/fifty-cal/auction/state.go:35.73,47.2 3 0
+github.com/willis7/fifty-cal/auction/state.go:49.25,50.38 1 0
+github.com/willis7/fifty-cal/auction/state.go:50.38,52.3 1 0
+github.com/willis7/fifty-cal/auction/state.go:57.35,61.2 3 2
+github.com/willis7/fifty-cal/auction/state.go:64.36,68.2 3 1
+github.com/willis7/fifty-cal/auction/state.go:74.34,80.2 4 1
+github.com/willis7/fifty-cal/auction/state.go:82.34,85.30 3 2
+github.com/willis7/fifty-cal/auction/state.go:90.2,90.28 1 1
+github.com/willis7/fifty-cal/auction/state.go:95.2,95.16 1 0
+github.com/willis7/fifty-cal/auction/state.go:85.30,88.3 2 1
+github.com/willis7/fifty-cal/auction/state.go:90.28,93.3 2 1
+github.com/willis7/fifty-cal/auction/state.go:98.34,100.2 1 0
+github.com/willis7/fifty-cal/auction/state.go:102.31,104.2 1 0
+github.com/willis7/fifty-cal/cmd/main.go:3.13,5.2 0 0

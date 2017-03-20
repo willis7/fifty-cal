@@ -1,20 +1,28 @@
 package main
 
 import (
+	"runtime"
 	"testing"
+	"time"
 
 	"github.com/onsi/gomega"
 	"github.com/willis7/fifty-cal/auction"
 )
 
 func TestJoinAndLoseWithoutBidding(t *testing.T) {
+	gomega.RegisterTestingT(t)
+
 	// Join an auction by creating a new instance
 	a := auction.Snipe(1234, 1.00, 4.00)
 
-	gomega.Eventually(a.Status()).Should(gomega.Equal(auction.StatusBidding))
+	runtime.Gosched()
+
+	gomega.Eventually(a.Status(), time.Duration(time.Second*2)).Should(gomega.Equal(auction.StatusBidding))
 
 	// Announce a closing auction
 	a.AnnounceClosed()
 
-	gomega.Eventually(a.Status()).Should(gomega.Equal(auction.StatusLost))
+	runtime.Gosched()
+
+	gomega.Eventually(a.Status(), time.Duration(time.Second*2)).Should(gomega.Equal(auction.StatusLost))
 }

@@ -1,4 +1,5 @@
 # fifty-cal
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 [![Build Status](https://travis-ci.org/willis7/fifty-cal.svg?branch=master)](https://travis-ci.org/willis7/fifty-cal)
 [![Coverage Status](https://coveralls.io/repos/github/willis7/fifty-cal/badge.svg?branch=master)](https://coveralls.io/github/willis7/fifty-cal?branch=master)
 [![Go Report Card](https://goreportcard.com/badge/github.com/willis7/fifty-cal)](https://goreportcard.com/report/github.com/willis7/fifty-cal)
